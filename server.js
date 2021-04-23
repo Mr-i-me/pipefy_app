@@ -15,7 +15,7 @@ app.use(express.static('public'));
 
 
 app.get('/', (request, response) => {
-  response.sendFile(`${__dirname}/views/index.html`);
+  response.sendFile(`${__dirname} /views/index.html`);
 });
 
 app.get('/manifest.json', (request, response) => {
