@@ -1,23 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Pipefy Apps Client.js -->
     <script src="https://d1ukdhoxof1oxs.cloudfront.net/pipefy-client.js"></script>
   </head>
   <body>
     <script>
       PipefyApp.initCall({
-        'pipe-view': function(p, pipe) {
-          return (
-            {
-              icon: 'https://cdn.glitch.com/921750f9-5c7c-4842-b805-9b8b2579d82e%2Freact-icon.svg?1507935176075',
-              text: 'React View',
-              url: './view.html',
-              hide_create_button: false,
-            }
-          )
+        "pipe-view": function(p, pipe) {
+          return {
+            icon:
+              "https://cdn.glitch.com/921750f9-5c7c-4842-b805-9b8b2579d82e%2Freact-icon.svg?1507935176075",
+            text: "React View",
+            url: "./view.html",
+            hide_create_button: false
+          };
         },
+        "card-tab": function(p, pipe) {
+          return {
+            icon: "./images/icon-blue.svg",
+            title: "Github",
+            url: "./attachments.html",
+            claimedAttachments: function(attachments) {
+              // Iterate by all attachments to claim attachments from Github
+              return attachments.filter(function(attachment) {
+                return attachment.url.indexOf("https://github.com") === 0;
+              });
+            },
+            buttons: [
+              {
+                text: "Attach",
+                callback: function(p) {
+                  getToken(p).then(function(token) {
+                    if (token) {
+                      showInitialDropdown(p);
+                    } else {
+                      showAuthorizeDropdown(p);
+                    }
+                  });
+                }
+              }
+            ]
+          };
+        }
       });
     </script>
   </body>
